@@ -32,12 +32,21 @@ app.get("/api/timestamp/:param", function(req, res) {
     let unix = new Date(query).valueOf();
     let utc = new Date(query).toUTCString();
     if (!unix || !utc) {
-      res.json({ error: "Invalid Date" });
+      res.json({"error" : "Invalid Date"});
     } else {
       res.json({ unix, utc });
     }
+  }else {
+    res.json({"error" : "Invalid Date"});
   }
 });
+
+app.get("/api/timestamp", function(req, res) {
+  res.json({
+      unix: new Date().valueOf(),
+      utc: new Date().toUTCString()
+    })
+})
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function() {
